@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+  background-image: url('../../images/bg.png');
+  height: 100vh;
+  width: 100vw;
+}
+
+.content-wrapper-row {
+  height: 100vh;
+  width: 100vw;
+}
+
+.test {
+  border: solid white;
+}
