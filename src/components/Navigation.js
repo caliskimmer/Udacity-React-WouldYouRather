@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Navbar, Nav } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { NavLink } from 'react-router-dom';
 
 class Navigation extends Component {
     render() {
@@ -10,9 +12,15 @@ class Navigation extends Component {
                     <Navbar.Brand>Would You Rather?</Navbar.Brand>
                     <Navbar.Collapse>
                         <Nav>
-                            <Nav.Link href='#'>Home</Nav.Link>
-                            <Nav.Link href='#'>New Question</Nav.Link>
-                            <Nav.Link href='#'>Leader Board</Nav.Link>
+                            <LinkContainer to='/home'>
+                                <Nav.Link>Home</Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to='/new-question'>
+                                <Nav.Link>New Question</Nav.Link>
+                            </LinkContainer>
+                            {/*<LinkContainer>*/}
+                            {/*    <Nav.Link>Leader Board</Nav.Link>*/}
+                            {/*</LinkContainer>*/}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
