@@ -33,9 +33,9 @@ class Home extends Component {
         const { selectedTab } = this.state;
         const { answeredIds, unansweredIds, authedUser } = this.props;
 
-        // if (!authedUser) {
-        //     return <Redirect to='/' />
-        // }
+        if (!authedUser) {
+            return <Redirect to='/' />
+        }
 
         return (
             <Container className='container rounded'>
@@ -65,7 +65,7 @@ class Home extends Component {
                                 {
                                     unansweredIds.map((id) => (
                                         <li key={id}>
-                                            <Question id={id} />
+                                            <Question id={id} answered={false} />
                                         </li>
                                     ))
                                 }
@@ -81,7 +81,7 @@ class Home extends Component {
                                 {
                                     answeredIds.map((id) => (
                                         <li key={id}>
-                                            <Question id={id} />
+                                            <Question id={id} answered={true} />
                                         </li>
                                     ))
                                 }
@@ -95,15 +95,13 @@ class Home extends Component {
     }
 }
 
-function mapStateToProps({ questions, authedUser }) {
+function mapStateToProps({ questions, authedUser, users }) {
+    const answeredIds = Object.keys(users[authedUser].answers);
+
     return {
-        answeredIds: Object.keys(questions).filter((id) => (
-           questions[id].optionOne.votes.includes(authedUser) ||
-           questions[id].optionTwo.votes.includes(authedUser)
-        )),
-        unansweredIds: Object.keys(questions).filter((id) => (
-            !questions[id].optionOne.votes.includes(authedUser) &&
-            !questions[id].optionTwo.votes.includes(authedUser)
+        answeredIds: answeredIds,
+        unansweredIds: Object.keys(questions).filter((questionId) => (
+            !answeredIds.includes(questionId)
         )),
         authedUser
     }

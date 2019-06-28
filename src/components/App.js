@@ -9,6 +9,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Login from './Login';
 import Home from './Home';
 import NewQuestion from './NewQuestion';
+import QuestionDetails from './QuestionDetails';
+import AnswerQuestion from './AnswerQuestion';
 import Navigation from './Navigation';
 
 // Others
@@ -39,6 +41,8 @@ class App extends Component {
                                     <Route path='/' exact component={Login} />
                                     <Route path='/home' component={Home} />
                                     <Route path='/new-question' component={NewQuestion} />
+                                    <Route path='/question/:id' component={QuestionDetails} />
+                                    <Route path='/answer-question/:id' component={AnswerQuestion} />
                                 </Col>
                             </Row>
                         }
