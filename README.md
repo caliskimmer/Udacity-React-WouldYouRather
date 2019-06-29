@@ -7,7 +7,7 @@ learned from the Udacity React Fundamentals course.
 
 * install all project dependencies with `yarn add`
 * start the development server with `yarn start`
-* see a live version of this app [here](http://tranquil-observation.surge.sh)
+* see a live version of this app [here](http://cumbersome-government.surge.sh)
 
 ## Screenshots
 
