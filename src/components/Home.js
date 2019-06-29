@@ -31,14 +31,10 @@ class Home extends Component {
         const ANSWERED_TAB = 1;
 
         const { selectedTab } = this.state;
-        const { answeredIds, unansweredIds, authedUser } = this.props;
-
-        if (!authedUser) {
-            return <Redirect to='/' />
-        }
+        const { answeredIds, unansweredIds } = this.props;
 
         return (
-            <Container className='container rounded'>
+            <Container className='content-container rounded non-responsive'>
                 <Row className='border-bottom'>
                     <Col className='unanswered-tab px-0'>
                         <Button onClick={() => this.changeTab(UNANSWERED_TAB)}
@@ -60,32 +56,41 @@ class Home extends Component {
                 {
                     selectedTab === 0 &&
                     <Row>
-                        <Col>
-                            <ul className='pl-0'>
-                                {
-                                    unansweredIds.map((id) => (
-                                        <li key={id}>
-                                            <Question id={id} answered={false} />
-                                        </li>
-                                    ))
-                                }
-                            </ul>
+                        <Col className='mx-5'>
+                            {
+                                unansweredIds.length > 0
+                                    ? <ul className='pl-0'>
+                                        {
+                                            unansweredIds.map((id) => (
+                                                <li key={id}>
+                                                    <Question id={id} answered={false} />
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                    : <h4>No unanswered questions</h4>
+                            }
+
                         </Col>
                     </Row>
                 }
                 {
                     selectedTab === 1 &&
                     <Row>
-                        <Col>
-                            <ul className='pl-0'>
-                                {
-                                    answeredIds.map((id) => (
-                                        <li key={id}>
-                                            <Question id={id} answered={true} />
-                                        </li>
-                                    ))
-                                }
-                            </ul>
+                        <Col className='mx-5'>
+                            {
+                                answeredIds.length > 0
+                                    ? <ul className='pl-0'>
+                                        {
+                                            answeredIds.map((id) => (
+                                                <li key={id}>
+                                                    <Question id={id} answered={true} />
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                    : <h4>No answered questions</h4>
+                            }
                         </Col>
                     </Row>
                 }
@@ -96,13 +101,20 @@ class Home extends Component {
 }
 
 function mapStateToProps({ questions, authedUser, users }) {
-    const answeredIds = Object.keys(users[authedUser].answers);
+    const answeredIds = Object.keys(users[authedUser].answers)
+        .sort((a, b) => (
+            users[authedUser].answers[b].timestamp - users[authedUser].answers[a].timestamp
+        ));
+
+    const unansweredIds = Object.keys(questions).filter((questionId) => (
+            !answeredIds.includes(questionId)
+        )).sort((a, b) => (
+            questions[b].timestamp - questions[a].timestamp
+        ));
 
     return {
         answeredIds: answeredIds,
-        unansweredIds: Object.keys(questions).filter((questionId) => (
-            !answeredIds.includes(questionId)
-        )),
+        unansweredIds: unansweredIds ,
         authedUser
     }
 }

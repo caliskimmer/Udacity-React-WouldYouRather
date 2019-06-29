@@ -39,7 +39,7 @@ export function handleSaveQuestion(question) {
     return (dispatch) => {
         return _saveQuestion(question)
             .then((formattedQuestion) => {
-                dispatch(saveQuestion({[formattedQuestion['id']]: formattedQuestion}))
+                dispatch(saveQuestion({[formattedQuestion.id]: formattedQuestion}))
             });
     }
 }

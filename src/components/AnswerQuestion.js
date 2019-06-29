@@ -46,14 +46,14 @@ class AnswerQuestion extends Component {
 
 
         return (
-            <Container className='rounded'>
+            <Container className='content-container rounded non-responsive'>
                 <Row className='py-3 bg-light question-header rounded'>
-                    <Col className='col-4 d-flex justify-content-center'>
+                    <Col xs={4} className='d-flex justify-content-center'>
                         <div className='d-inline-block font-weight-bold'>{author} asks</div>
                     </Col>
                 </Row>
                 <Row>
-                    <Col className='col-4 border-right d-flex justify-content-center align-items-center p-3'>
+                    <Col xs={4} className='border-right d-flex justify-content-center align-items-center p-3'>
                         <img className='rounded-circle question-avatar' src={avatarURL} alt='avatar' />
                     </Col>
                     <Col className='text-left p-3'>

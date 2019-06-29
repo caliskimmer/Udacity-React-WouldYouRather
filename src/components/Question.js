@@ -35,18 +35,18 @@ class Question extends Component {
         return (
             <Container fluid className='my-3 question rounded my-3'>
                 <Row className='py-3 bg-light question-header'>
-                    <Col className='col-4 d-flex justify-content-center'>
-                        <div className='d-inline-block font-weight-bold'>{`${question['author']} asks`}</div>
+                    <Col xs={4} className='d-flex justify-content-center'>
+                        <div className='d-inline-block font-weight-bold'>{`${user.name} asks`}</div>
                     </Col>
                 </Row>
                 <Row className='py-4'>
-                    <Col className='col-4 d-flex justify-content-center align-items-center'>
-                        <img src={user['avatarURL']} alt='avatar' className='rounded-circle'/>
+                    <Col xs={4} className='d-flex justify-content-center align-items-center'>
+                        <img src={user.avatarURL} alt='avatar' className='rounded-circle'/>
                     </Col>
                     <Col>
                         <div className='question-data mb-2'>
                             <div className='font-weight-bold'>Would you rather</div>
-                            <div className='question-text'>{question['optionOne']['text']}</div>
+                            <div className='question-text'>{question.optionOne.text}</div>
                             <Button onClick={() => this.displayDetails()} className='mt-2'>View Poll</Button>
                         </div>
                     </Col>
@@ -59,7 +59,7 @@ class Question extends Component {
 function mapStateToProps({ users, questions }, { id }) {
     return {
         question: questions[id],
-        user: users[questions[id]['author']],
+        user: users[questions[id].author],
         users
     }
 }

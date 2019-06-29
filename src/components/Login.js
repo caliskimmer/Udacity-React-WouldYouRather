@@ -1,27 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import './styles/Login.css';
+import './styles/global.css';
 import logo from '../images/redux-logo.png';
 import { handleSetAuthedUser } from '../actions/authedUser';
 
 class Login extends Component {
+    state = {
+        selectedId: null
+    };
+
     constructor(props) {
         super(props);
-        this.state = {
-            toHome: false
-        };
     }
 
     handleChange = (e) => {
-        this.setState({selectedId: e.target.value});
+        e.preventDefault();
+
+        const value = e.target.value;
+        this.setState(() => (
+            {selectedId: value}
+        ));
     };
 
-    handleSubmit = () => {
+    handleSubmit = (e) => {
+        e.preventDefault();
         this.props.dispatch(handleSetAuthedUser(this.state.selectedId));
-        this.setState({toHome: true});
+
+        let locationState = this.props.location.state;
+        if (locationState && locationState.from) {
+            this.props.history.push(locationState.from);
+        } else {
+            this.props.history.push('/home');
+        }
     };
 
     componentDidMount() {
@@ -29,23 +42,17 @@ class Login extends Component {
             return;
         }
 
-        this.setState({
-            selectedId: this.props.userIds[0]
-        });
-        //console.log(this.state.selectedId);
-        //this.props.dispatch(handleSetAuthedUser(this.state.selectedId));
+        this.setState(() => (
+            {selectedId: this.props.userIds[0]}
+        ));
     }
 
     render() {
         const { userIds } = this.props;
-        const { toHome, selectedId } = this.state;
-
-        if (toHome === true) {
-            return <Redirect to='/home' />
-        }
+        const { selectedId } = this.state;
 
         return (
-            <Container fluid className='container rounded shadow-lg pb-4'>
+            <Container className='content-container rounded shadow-lg pb-4 non-responsive'>
                 <Row className='bg-light rounded-top p-2 border-bottom'>
                     <Col>
                         <h5 className='font-weight-bold'>Welcome to the Would You Rather App!</h5>
@@ -63,7 +70,7 @@ class Login extends Component {
                         {
                             selectedId &&
                                  <select
-                                    onChange={this.handleChange}
+                                    onChange={(e)=> this.handleChange(e)}
                                     value={selectedId}
                                     className='p-2 d-block w-100 rounded'>
                                     {
@@ -76,7 +83,7 @@ class Login extends Component {
                                 </select>
                         }
                         <Button className='p-2 w-100 mt-3'
-                            onClick={() => this.handleSubmit()}>
+                            onClick={(e) => this.handleSubmit(e)}>
                             Log in
                         </Button>
                     </Col>

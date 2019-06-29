@@ -41,7 +41,7 @@ class NewQuestion extends Component {
         }
 
         return (
-            <Container className='rounded'>
+            <Container className='content-container rounded non-responsive'>
                 <Row className='rounded-top py-2 border-bottom bg-light'>
                     <Col>
                         <h3 className='font-weight-bold'>Create New Question</h3>

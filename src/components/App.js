@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import LoadingBar from 'react-redux-loading-bar';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 
 
@@ -12,9 +12,13 @@ import NewQuestion from './NewQuestion';
 import QuestionDetails from './QuestionDetails';
 import AnswerQuestion from './AnswerQuestion';
 import Navigation from './Navigation';
+import Leaderboard from './Leaderboard';
+import PrivateRoute from './PrivateRoute';
+import NotFound from './NotFound';
 
 // Others
 import './styles/App.css';
+import './styles/global.css';
 import { handleReceiveUsers } from '../actions/users';
 import { handleReceiveQuestions } from '../actions/questions';
 
@@ -37,12 +41,16 @@ class App extends Component {
                         {this.props.loading === true
                             ? null
                             : <Row className='justify-content-center content-wrapper'>
-                                <Col lg={3}>
-                                    <Route path='/' exact component={Login} />
-                                    <Route path='/home' component={Home} />
-                                    <Route path='/new-question' component={NewQuestion} />
-                                    <Route path='/question/:id' component={QuestionDetails} />
-                                    <Route path='/answer-question/:id' component={AnswerQuestion} />
+                                <Col>
+                                    <Switch>
+                                        <Route path='/' exact component={Login} />
+                                        <PrivateRoute path='/home' component={Home} />
+                                        <PrivateRoute path='/add' component={NewQuestion} />
+                                        <PrivateRoute path='/question/:id' component={QuestionDetails} />
+                                        <PrivateRoute path='/answer-question/:id' component={AnswerQuestion} />
+                                        <PrivateRoute path='/leaderboard' component={Leaderboard} />
+                                        <Route component={NotFound} />
+                                    </Switch>
                                 </Col>
                             </Row>
                         }
