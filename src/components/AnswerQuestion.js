@@ -38,7 +38,7 @@ class AnswerQuestion extends Component {
     };
 
     render() {
-        const {optionOneText, optionTwoText, avatarURL, author} = this.props;
+        const {optionOneText, optionTwoText, avatarURL, author, users} = this.props;
 
         if (!author) {
             return <Redirect to='/not-found' />
@@ -52,7 +52,7 @@ class AnswerQuestion extends Component {
             <Container className='content-container rounded non-responsive'>
                 <Row className='py-3 bg-light question-header rounded'>
                     <Col xs={4} className='d-flex justify-content-center'>
-                        <div className='d-inline-block font-weight-bold'>{author} asks</div>
+                        <div className='d-inline-block font-weight-bold'>{users[author].name} asks</div>
                     </Col>
                 </Row>
                 <Row>
