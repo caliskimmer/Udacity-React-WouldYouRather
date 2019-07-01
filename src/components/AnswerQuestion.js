@@ -40,10 +40,13 @@ class AnswerQuestion extends Component {
     render() {
         const {optionOneText, optionTwoText, avatarURL, author} = this.props;
 
+        if (!author) {
+            return <Redirect to='/not-found' />
+        }
+
         if (this.state.toQuestion) {
             return <Redirect to={`/question/${this.props.match.params.id}`}/>
         }
-
 
         return (
             <Container className='content-container rounded non-responsive'>
@@ -76,12 +79,13 @@ class AnswerQuestion extends Component {
 
 function mapStateToProps({users, authedUser, questions}, ownProps) {
     const id = ownProps.match.params.id;
+    const question = questions[id];
 
     return {
-        author: questions[id].author,
-        avatarURL: users[questions[id].author].avatarURL,
-        optionOneText: questions[id].optionOne.text,
-        optionTwoText: questions[id].optionTwo.text,
+        author: question ? questions[id].author : null,
+        avatarURL: question ? users[questions[id].author].avatarURL : null,
+        optionOneText: question ? questions[id].optionOne.text : null,
+        optionTwoText: question ? questions[id].optionTwo.text : null,
         users,
         authedUser
     };
