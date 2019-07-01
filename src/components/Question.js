@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 
-import { formatQuestion } from '../utils/_DATA';
 import './styles/Question.css';
 
 class Question extends Component {

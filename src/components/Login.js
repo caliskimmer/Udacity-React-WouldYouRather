@@ -12,10 +12,6 @@ class Login extends Component {
         selectedId: null
     };
 
-    constructor(props) {
-        super(props);
-    }
-
     handleChange = (e) => {
         e.preventDefault();
 

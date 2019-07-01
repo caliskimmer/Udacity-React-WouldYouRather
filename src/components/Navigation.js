@@ -42,7 +42,10 @@ class Navigation extends Component {
                                     <Nav>
                                         <Nav.Link className='text-dark' disabled>{`Welcome, ${name}`}</Nav.Link>
                                         <Nav.Link className='profile-img-container' disabled>
-                                            <img className='rounded-circle mw-100 profile-img' src={avatarURL} />
+                                            <img
+                                                className='rounded-circle mw-100 profile-img'
+                                                src={avatarURL}
+                                                alt={'avatar'}/>
                                         </Nav.Link>
                                         <LinkContainer to='/'>
                                             <Nav.Link onClick={() => this.handleLogout()}>Logout</Nav.Link>
